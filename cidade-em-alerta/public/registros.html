@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cidade em Alerta - Registros</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>Cidade em Alerta</h1>
+    <nav><a href="/">Registrar</a><a href="/registros.html" class="ativo">Registros e indicadores</a></nav>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Indicadores</h2>
+      <div class="indicadores">
+        <div><div class="numero" id="total">0</div>Total de registros</div>
+        <div><div class="numero" id="percAlta">0%</div>Com prioridade alta</div>
+        <div><strong>Por categoria</strong><ul id="porCategoria"></ul></div>
+        <div><strong>Por prioridade</strong><ul id="porPrioridade"></ul></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Ocorrências cadastradas</h2>
+      <div id="msg" class="msg"></div>
+      <table>
+        <thead><tr><th>Data</th><th>Título</th><th>Categoria</th><th>Prioridade</th><th>Bairro</th></tr></thead>
+        <tbody id="corpo"></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="/registros.js"></script>
+</body>
+</html>

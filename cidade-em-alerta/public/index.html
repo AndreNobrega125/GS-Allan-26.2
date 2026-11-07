@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cidade em Alerta - Registrar ocorrência</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>Cidade em Alerta</h1>
+    <nav><a href="/" class="ativo">Registrar</a><a href="/registros.html">Registros e indicadores</a></nav>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Sobre o projeto</h2>
+      <p><strong>Problema:</strong> problemas urbanos (buracos, iluminação, lixo, alagamentos) são reportados de forma dispersa, e a prefeitura não sabe o que priorizar.</p>
+      <p><strong>Público-alvo:</strong> moradores que reportam e equipes de zeladoria que precisam priorizar.</p>
+      <p><strong>Objetivo:</strong> centralizar os registros e gerar indicadores para apoiar a priorização.</p>
+      <p><strong>ODS:</strong> ODS 11 – Cidades e Comunidades Sustentáveis.</p>
+    </section>
+
+    <section class="card">
+      <h2>Registrar ocorrência</h2>
+      <form id="form">
+        <label for="titulo">Título</label>
+        <input id="titulo" name="titulo" maxlength="100" required placeholder="Ex.: Buraco na Av. Paulista">
+
+        <label for="categoria">Categoria</label>
+        <select id="categoria" name="categoria" required></select>
+
+        <label for="prioridade">Prioridade</label>
+        <select id="prioridade" name="prioridade" required></select>
+
+        <label for="bairro">Bairro</label>
+        <input id="bairro" name="bairro" maxlength="60" required placeholder="Ex.: Bela Vista">
+
+        <label for="descricao">Descrição (opcional)</label>
+        <textarea id="descricao" name="descricao" rows="3" maxlength="300"></textarea>
+
+        <button type="submit">Enviar</button>
+        <div id="msg" class="msg"></div>
+      </form>
+    </section>
+  </main>
+  <script src="/form.js"></script>
+</body>
+</html>
