@@ -15,14 +15,22 @@ Centralizar os registros e gerar indicadores simples que apoiem a priorização.
 ## Tecnologias
 HTML, CSS, JavaScript, Node.js, Express e MongoDB.
 
+## Pré-requisitos
+- Node.js
+- **MongoDB rodando em `mongodb://127.0.0.1:27017`** (o banco não vem dentro do projeto). Escolha uma das opções:
+  1. **MongoDB instalado na máquina** (MongoDB Community): basta o serviço estar ativo.
+  2. **Docker**, com o MongoDB oficial (imagem `mongo:7`): na pasta do projeto, `docker compose up -d`.
+  3. **MongoDB Atlas** (nuvem): defina a variável de ambiente `MONGODB_URI` com a sua connection string antes de iniciar.
+
+> Observação: durante o desenvolvimento o MongoDB rodou em um container Docker. Não é um emulador: é o MongoDB oficial, o mesmo software de uma instalação comum, apenas empacotado em container. O código usa o driver oficial `mongodb` e funciona igual em qualquer uma das opções acima.
+
 ## Como executar
-1. Tenha o Node.js e um MongoDB rodando. Opção rápida com Docker:
-   `docker run -d --name mongo-gs -p 27017:27017 mongo`
+1. Deixe o MongoDB rodando (veja acima).
 2. Na pasta do projeto: `npm install`
 3. `npm start`
 4. Abra http://localhost:3000
 
-Por padrão conecta em `mongodb://127.0.0.1:27017`. Para outro MongoDB (ex.: Atlas), defina a variável de ambiente `MONGODB_URI` antes de iniciar.
+Por padrão conecta em `mongodb://127.0.0.1:27017`. Se o MongoDB não estiver acessível, o servidor mostra uma mensagem de erro clara no terminal e encerra.
 
 Banco: `cidade_em_alerta` | Coleção: `ocorrencias`.
 
