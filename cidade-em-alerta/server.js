@@ -10,7 +10,7 @@ const CATEGORIAS = ["Buraco na via", "Iluminação", "Lixo/Entulho", "Calçada/A
 const PRIORIDADES = ["Baixa", "Média", "Alta"];
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: "10kb" })); // corpo pequeno: os campos têm tamanho máximo
 app.use(express.static(path.join(__dirname, "public")));
 
 let colecao; // coleção "ocorrencias"
@@ -18,11 +18,14 @@ let colecao; // coleção "ocorrencias"
 // Valida e normaliza os campos recebidos do formulário.
 function validar(body) {
   const erros = [];
-  const titulo = String(body.titulo || "").trim();
-  const categoria = String(body.categoria || "").trim();
-  const prioridade = String(body.prioridade || "").trim();
-  const bairro = String(body.bairro || "").trim();
-  const descricao = String(body.descricao || "").trim();
+  // Só aceita texto: arrays/objetos (ex.: {"$ne":1}) viram "" e são rejeitados abaixo.
+  const texto = (v) => (typeof v === "string" ? v.trim() : "");
+  const titulo = texto(body.titulo);
+  const categoria = texto(body.categoria);
+  const prioridade = texto(body.prioridade);
+  const bairro = texto(body.bairro);
+  const descricao = texto(body.descricao);
+  if (body.descricao !== undefined && typeof body.descricao !== "string") erros.push("Descrição deve ser texto.");
 
   if (titulo.length < 3 || titulo.length > 100) erros.push("Título deve ter entre 3 e 100 caracteres.");
   if (!CATEGORIAS.includes(categoria)) erros.push("Categoria inválida.");
@@ -89,6 +92,14 @@ app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
 });
 
+// Tratamento de erros (ex.: JSON malformado): resposta limpa, sem stack trace.
+app.use((err, req, res, next) => {
+  if (err.type === "entity.parse.failed") return res.status(400).json({ erro: "JSON inválido." });
+  if (err.type === "entity.too.large") return res.status(413).json({ erro: "Corpo da requisição grande demais." });
+  console.error(err);
+  res.status(500).json({ erro: "Erro interno do servidor." });
+});
+
 async function iniciar() {
   const client = new MongoClient(MONGODB_URI, { serverSelectionTimeoutMS: 5000 });
   try {
@@ -103,4 +114,7 @@ async function iniciar() {
   }
 }
 
-iniciar();
+// Exporta o app para os testes automatizados (que usam uma coleção em memória).
+module.exports = { app, validar, definirColecao: (c) => { colecao = c; } };
+
+if (require.main === module) iniciar();
