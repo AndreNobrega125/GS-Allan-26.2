@@ -4,7 +4,7 @@ Global Solution 2026.2 – Application Development (CitizenTech)
 
 Aplicação web para registrar problemas urbanos (buracos, iluminação, lixo, alagamentos, calçadas) e acompanhar indicadores que ajudam a priorizar o atendimento.
 
-**Vídeo pitch:** _COLE AQUI O LINK DO VÍDEO_
+**Vídeo pitch:** https://youtu.be/Jyy4Yhi91Rg
 
 ## Problema
 Problemas urbanos são reportados de forma dispersa, e fica difícil saber o que é mais frequente e o que é mais urgente.
